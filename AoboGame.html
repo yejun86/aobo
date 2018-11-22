@@ -1,27 +1,44 @@
 <html>
 <head>
-    <title>Aobo</title>
-    <meta http-equiv="Content-Type" content="text/HTML; charset=utf-8">
+    <title>应用下载</title>
+    <meta http-equiv="Content-Type" content="text/HTML; charset=utf-8"/>
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;"
         name="viewport" />
     <script type="text/javascript">
-        function doLocation(url) {
+        var androidUrl = "http://www.aobo999888.com/download/AoboGame_v1.1.1.apk";
+        var iosUrl = "itms-services://?action=download-manifest&url=https://raw.githubusercontent.com/yejun86/aobo/master/game.plist"
+
+        function dodownload() {
+            var u = navigator.userAgent, app = navigator.appVersion;
+
+            var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1;
+            var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+
             var a = document.createElement("a");
             if (!a.click) {
-                window.location = url;
+                if (isIOS) {
+                    window.location = iosUrl;
+                } else {
+                    window.location = androidUrl;
+                }
+
                 return;
             }
-            a.setAttribute("href", url);
+            if (isIOS) {
+                a.setAttribute("href", iosUrl);
+            } else {
+                a.setAttribute("href", androidUrl);
+            }
             a.style.display = "none";
             document.body.appendChild(a);
 
             a.click();
-        }  
+        }
     </script>
 </head>
 <body>
     <script type="text/javascript">
-        doLocation('itms-services://?action=download-manifest&url=https://raw.githubusercontent.com/yejun86/aobo/master/game.plist');  
+        dodownload();
     </script>
 </body>
 </html>
